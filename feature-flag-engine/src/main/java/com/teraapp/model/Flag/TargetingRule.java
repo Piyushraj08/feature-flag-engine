@@ -1,8 +1,10 @@
 package com.teraapp.model.Flag;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;   // ← ADD KAR
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serializable;   // ← ADD KAR
 
 @Entity
 @Table(name = "targeting_rules")
@@ -10,7 +12,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TargetingRule {
+public class TargetingRule implements Serializable {   // ← ADD KAR
+
+    private static final long serialVersionUID = 1L;   // ← ADD KAR
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

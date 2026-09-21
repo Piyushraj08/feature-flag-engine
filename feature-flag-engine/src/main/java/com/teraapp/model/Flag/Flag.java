@@ -3,6 +3,8 @@ package com.teraapp.model.Flag;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serializable;   // ← ADD KAR
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Flag {
+public class Flag implements Serializable {   // ← ADD KAR
+
+    private static final long serialVersionUID = 1L;   // ← ADD KAR
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +31,6 @@ public class Flag {
     @Column(name = "rollout_percentage")
     private Integer rolloutPercentage = 0;
 
-    // NEW: One-to-many relationship
     @OneToMany(mappedBy = "flag", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<TargetingRule> rules = new ArrayList<>();
