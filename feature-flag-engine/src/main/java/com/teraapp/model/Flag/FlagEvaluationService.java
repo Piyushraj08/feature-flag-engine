@@ -10,7 +10,7 @@ public class FlagEvaluationService {
     private FlagCacheService flagCacheService;
 
     public EvaluationResponse evaluate(Long flagId, EvaluationRequest request) {
-        // Yahan change kar — sirf ye line
+
         Flag flag = flagCacheService.getFlag(flagId);
 
         // Step 1: Agar flag disabled hai, toh turant false
@@ -18,7 +18,6 @@ public class FlagEvaluationService {
             return new EvaluationResponse(flag.getName(), false, "Flag is disabled");
         }
 
-        // Step 2: Rules check karo
         for (TargetingRule rule : flag.getRules()) {
             String userValue = request.getAttributes().get(rule.getAttribute());
 
@@ -32,7 +31,7 @@ public class FlagEvaluationService {
             }
         }
 
-        // Step 3: Percentage rollout check karo
+
         if (flag.getRolloutPercentage() != null && flag.getRolloutPercentage() > 0) {
             int bucket = getBucket(request.getUserId(), flag.getName());
             if (bucket >= flag.getRolloutPercentage()) {

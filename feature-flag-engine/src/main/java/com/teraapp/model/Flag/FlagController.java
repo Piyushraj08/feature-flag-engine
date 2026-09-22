@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.teraapp.model.Flag.exception.FlagNotFoundException;
 
-import java.time.LocalDateTime;   // ← ADD KAR
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -18,7 +18,7 @@ public class FlagController {
     private FlagCacheService flagCacheService;
 
     @Autowired
-    private FlagEventProducer flagEventProducer;   // ← ADD KAR
+    private FlagEventProducer flagEventProducer;
 
     // GET all flags
     @GetMapping
@@ -36,7 +36,7 @@ public class FlagController {
     // POST create flag
     @PostMapping
     public Flag createFlag(@RequestBody Flag flag) {
-        Flag saved = flagRepository.save(flag);   // ← CHANGE
+        Flag saved = flagRepository.save(flag);
 
         flagEventProducer.publishEvent(new FlagEvent(
                 saved.getId(), saved.getName(), "CREATE", "system", LocalDateTime.now()

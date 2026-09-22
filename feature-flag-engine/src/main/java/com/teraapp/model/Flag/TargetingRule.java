@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;   // ← ADD KAR
+import java.io.Serializable;
 
 @Entity
 @Table(name = "targeting_rules")
@@ -12,9 +12,9 @@ import java.io.Serializable;   // ← ADD KAR
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TargetingRule implements Serializable {   // ← ADD KAR
+public class TargetingRule implements Serializable {
 
-    private static final long serialVersionUID = 1L;   // ← ADD KAR
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
