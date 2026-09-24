@@ -22,14 +22,18 @@ public class FlagEventConsumer {
         try {
             FlagEvent event = objectMapper.readValue(message, FlagEvent.class);
 
+            // 1. Audit log save
             AuditLog log = new AuditLog();
             log.setFlagId(event.getFlagId());
             log.setFlagName(event.getFlagName());
             log.setEventType(event.getEventType());
             log.setActor(event.getActor());
             log.setTimestamp(event.getTimestamp());
-
             auditLogRepository.save(log);
+
+            // Important line
+            SseController.broadcast("flag-update", event);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
